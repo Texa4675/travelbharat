@@ -44,18 +44,18 @@ export default function Home() {
               alt={`India Landscape ${index + 1}`}
               fill
               className="object-cover scale-105"
-              priority={index < 2} // Prioritize first two images to resolve LCP issues
+              priority={index < 2}
               data-ai-hint={image.hint}
             />
           </div>
         ))}
         
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-background flex flex-col items-center justify-center text-center p-4 z-10">
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-background flex flex-col items-center justify-center text-center px-4 z-10">
+          <div className="container mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <h1 className="text-6xl md:text-8xl font-headline font-bold text-white mb-6 drop-shadow-2xl">
               TravelBharat
             </h1>
-            <p className="text-xl md:text-3xl text-white/95 max-w-3xl mb-10 font-body drop-shadow-lg leading-relaxed">
+            <p className="text-xl md:text-3xl text-white/95 max-w-3xl mx-auto mb-10 font-body drop-shadow-lg leading-relaxed">
               Uncover the soul of India. From ancient heritage to modern wonders, explore the subcontinent state by state.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
