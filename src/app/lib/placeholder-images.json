@@ -36,6 +36,42 @@
       "description": "Ancient stone chariot at Hampi",
       "imageUrl": "https://picsum.photos/seed/hampi/1200/800",
       "imageHint": "Hampi heritage"
+    },
+    {
+      "id": "gateway-india",
+      "description": "The Gateway of India in Mumbai",
+      "imageUrl": "https://picsum.photos/seed/mumbai/1200/800",
+      "imageHint": "Mumbai Gateway India"
+    },
+    {
+      "id": "meenakshi-temple",
+      "description": "The colorful gopurams of Meenakshi Temple",
+      "imageUrl": "https://picsum.photos/seed/madurai/1200/800",
+      "imageHint": "Madurai temple"
+    },
+    {
+      "id": "victoria-memorial",
+      "description": "The majestic Victoria Memorial in Kolkata",
+      "imageUrl": "https://picsum.photos/seed/kolkata/1200/800",
+      "imageHint": "Victoria Memorial heritage"
+    },
+    {
+      "id": "golden-temple",
+      "description": "The spiritual Golden Temple of Amritsar",
+      "imageUrl": "https://picsum.photos/seed/amritsar/1200/800",
+      "imageHint": "Golden Temple Punjab"
+    },
+    {
+      "id": "konark-sun-temple",
+      "description": "The stone chariot of Konark Sun Temple",
+      "imageUrl": "https://picsum.photos/seed/konark/1200/800",
+      "imageHint": "Konark Sun Temple"
+    },
+    {
+      "id": "rann-of-kutch",
+      "description": "The white salt desert of Kutch",
+      "imageUrl": "https://picsum.photos/seed/kutch/1200/800",
+      "imageHint": "Rann Kutch Gujarat"
     }
   ]
 }
