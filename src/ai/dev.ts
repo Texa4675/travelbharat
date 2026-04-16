@@ -2,3 +2,4 @@ import { config } from 'dotenv';
 config();
 
 import '@/ai/flows/admin-ai-description-generator.ts';
+import '@/ai/flows/identify-monument-flow.ts';

@@ -1,8 +1,7 @@
-
 'use client';
 
 import Link from 'next/link';
-import { Search, Map, User, Menu } from 'lucide-react';
+import { Search, Map, User, Menu, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -23,7 +22,9 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-6">
             <Link href="/states" className="text-sm font-medium hover:text-primary transition-colors">States</Link>
             <Link href="/destinations" className="text-sm font-medium hover:text-primary transition-colors">Destinations</Link>
-            <Link href="/heritage" className="text-sm font-medium hover:text-primary transition-colors">Heritage</Link>
+            <Link href="/scan" className="text-sm font-bold flex items-center gap-1.5 text-primary hover:text-primary/80 transition-colors">
+              <Camera className="h-4 w-4" /> Scan
+            </Link>
           </div>
         </div>
 
@@ -47,7 +48,9 @@ export default function Navbar() {
               <div className="flex flex-col gap-6 mt-8">
                 <Link href="/states" className="text-lg font-headline hover:text-primary">States</Link>
                 <Link href="/destinations" className="text-lg font-headline hover:text-primary">Destinations</Link>
-                <Link href="/heritage" className="text-lg font-headline hover:text-primary">Heritage</Link>
+                <Link href="/scan" className="text-lg font-headline text-primary flex items-center gap-2 font-bold">
+                  <Camera className="h-5 w-5" /> Scan Monument
+                </Link>
                 <Link href="/admin" className="text-lg font-headline hover:text-primary">Admin Login</Link>
               </div>
             </SheetContent>
