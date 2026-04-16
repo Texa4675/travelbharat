@@ -1,26 +1,36 @@
-
 'use client';
 
-import React, { ReactNode } from 'react';
-import { FirebaseApp } from 'firebase/app';
-import { Firestore } from 'firebase/firestore';
-import { Auth } from 'firebase/auth';
+import React, { ReactNode, useState, useEffect } from 'react';
 import { FirebaseProvider } from './provider';
 import { FirebaseErrorListener } from '@/components/FirebaseErrorListener';
+import { initializeFirebase } from './init';
 
 export const FirebaseClientProvider = ({
   children,
-  firebaseApp,
-  firestore,
-  auth,
 }: {
   children: ReactNode;
-  firebaseApp: FirebaseApp;
-  firestore: Firestore;
-  auth: Auth;
 }) => {
+  const [firebaseInstance, setFirebaseInstance] = useState<any>(null);
+
+  useEffect(() => {
+    const instance = initializeFirebase();
+    setFirebaseInstance(instance);
+  }, []);
+
+  if (!firebaseInstance) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-background">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
   return (
-    <FirebaseProvider firebaseApp={firebaseApp} firestore={firestore} auth={auth}>
+    <FirebaseProvider
+      firebaseApp={firebaseInstance.firebaseApp}
+      firestore={firebaseInstance.firestore}
+      auth={firebaseInstance.auth}
+    >
       <FirebaseErrorListener />
       {children}
     </FirebaseProvider>
