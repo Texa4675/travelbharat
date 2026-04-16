@@ -1,0 +1,41 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "taj-mahal",
+      "description": "The majestic Taj Mahal at sunrise",
+      "imageUrl": "https://picsum.photos/seed/taj/1200/800",
+      "imageHint": "Taj Mahal heritage"
+    },
+    {
+      "id": "kerala-backwaters",
+      "description": "Serene backwaters of Kerala with a houseboat",
+      "imageUrl": "https://picsum.photos/seed/kerala/1200/800",
+      "imageHint": "Kerala backwaters nature"
+    },
+    {
+      "id": "varanasi-ghats",
+      "description": "Spiritual evening aarti at Varanasi ghats",
+      "imageUrl": "https://picsum.photos/seed/varanasi/1200/800",
+      "imageHint": "Varanasi religious"
+    },
+    {
+      "id": "ladakh-mountains",
+      "description": "Breathtaking landscape of Ladakh",
+      "imageUrl": "https://picsum.photos/seed/ladakh/1200/800",
+      "imageHint": "Ladakh adventure nature"
+    },
+    {
+      "id": "goa-beaches",
+      "description": "Golden sands and blue waters of Goa",
+      "imageUrl": "https://picsum.photos/seed/goa/1200/800",
+      "imageHint": "Goa beach nature"
+    },
+    {
+      "id": "hampi-ruins",
+      "description": "Ancient stone chariot at Hampi",
+      "imageUrl": "https://picsum.photos/seed/hampi/1200/800",
+      "imageHint": "Hampi heritage"
+    }
+  ]
+}
