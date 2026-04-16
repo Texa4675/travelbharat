@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
@@ -7,12 +8,18 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
-import { Camera, RefreshCw, Scan, History, Lightbulb, MapPin, Loader2, X } from 'lucide-react';
+import { Camera, RefreshCw, Scan, History, Lightbulb, MapPin, Loader2, X, Save } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { identifyMonument, type IdentifyMonumentOutput } from '@/ai/flows/identify-monument-flow';
+import { useUser, useFirestore } from '@/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 export default function ScanPage() {
   const { toast } = useToast();
+  const { user } = useUser();
+  const db = useFirestore();
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
@@ -72,6 +79,28 @@ export default function ScanPage() {
     try {
       const aiResult = await identifyMonument({ photoDataUri: imageData });
       setResult(aiResult);
+      
+      if (aiResult.isIndianMonument && user && db) {
+        // Optimistically save to history if user is logged in
+        const scanData = {
+          userId: user.uid,
+          monumentName: aiResult.name,
+          location: `${aiResult.location?.city}, ${aiResult.location?.state}`,
+          timestamp: Date.now(),
+          imageUrl: imageData
+        };
+        
+        const scanRef = collection(db, 'users', user.uid, 'scans');
+        addDoc(scanRef, scanData).catch(async (err) => {
+          const permissionError = new FirestorePermissionError({
+            path: scanRef.path,
+            operation: 'create',
+            requestResourceData: scanData,
+          });
+          errorEmitter.emit('permission-error', permissionError);
+        });
+      }
+
       if (!aiResult.isIndianMonument) {
         toast({
           title: "Unknown Location",
@@ -105,11 +134,9 @@ export default function ScanPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-          {/* Camera/Capture Section */}
           <div className="space-y-4">
             <Card className="overflow-hidden border-2 border-primary/20">
               <div className="relative aspect-video bg-black">
-                {/* Always show video tag irrespective of permission to prevent race condition */}
                 <video 
                   ref={videoRef} 
                   className={`w-full h-full object-cover ${capturedImage ? 'hidden' : 'block'}`} 
@@ -161,10 +188,17 @@ export default function ScanPage() {
               </CardContent>
             </Card>
             
+            {!user && capturedImage && (
+              <Alert className="bg-primary/10 border-primary/20">
+                <AlertDescription className="text-xs">
+                  Login to save this discovery to your travel history!
+                </AlertDescription>
+              </Alert>
+            )}
+            
             <canvas ref={canvasRef} className="hidden" />
           </div>
 
-          {/* Results Section */}
           <div className="space-y-6">
             {!result && !isAnalyzing && (
               <div className="h-full flex flex-col items-center justify-center p-12 text-center border-2 border-dashed rounded-3xl opacity-50">
@@ -188,9 +222,7 @@ export default function ScanPage() {
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div>
-                      <h4 className="font-bold mb-2 text-sm uppercase tracking-wider flex items-center gap-2">
-                         Overview
-                      </h4>
+                      <h4 className="font-bold mb-2 text-sm uppercase tracking-wider flex items-center gap-2">Overview</h4>
                       <p className="text-muted-foreground leading-relaxed">{result.description}</p>
                     </div>
 

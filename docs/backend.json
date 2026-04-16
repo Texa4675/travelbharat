@@ -1,0 +1,71 @@
+
+{
+  "entities": {
+    "State": {
+      "title": "State",
+      "description": "An Indian State or Union Territory.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "capital": { "type": "string" },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "imageHint": { "type": "string" }
+      },
+      "required": ["id", "name"]
+    },
+    "Destination": {
+      "title": "Destination",
+      "description": "A tourist destination or monument.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "stateId": { "type": "string" },
+        "cityName": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "historicalSignificance": { "type": "string" },
+        "bestTime": { "type": "string" },
+        "locationLink": { "type": "string" },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "imageHints": { "type": "array", "items": { "type": "string" } },
+        "nearbyAttractions": { "type": "array", "items": { "type": "string" } },
+        "uniqueInsights": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["id", "name", "stateId"]
+    },
+    "UserScan": {
+      "title": "UserScan",
+      "description": "A record of a monument identified by a user.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "monumentName": { "type": "string" },
+        "location": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["userId", "monumentName", "timestamp"]
+    }
+  },
+  "auth": {
+    "providers": ["google.com"]
+  },
+  "firestore": {
+    "/states/{stateId}": {
+      "schema": { "$ref": "#/entities/State" },
+      "description": "Collection of Indian states."
+    },
+    "/destinations/{destinationId}": {
+      "schema": { "$ref": "#/entities/Destination" },
+      "description": "Collection of tourist destinations."
+    },
+    "/users/{userId}/scans/{scanId}": {
+      "schema": { "$ref": "#/entities/UserScan" },
+      "description": "History of monuments scanned by a specific user."
+    }
+  }
+}
