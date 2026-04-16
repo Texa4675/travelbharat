@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -15,7 +14,6 @@ export default function Home() {
   const featuredDestinations = DESTINATIONS.slice(0, 4);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Hero images curated from placeholder data
   const heroImages = [
     { url: 'https://picsum.photos/seed/taj/1920/1080', hint: 'Taj Mahal' },
     { url: 'https://picsum.photos/seed/kerala/1920/1080', hint: 'Kerala Backwaters' },
@@ -34,7 +32,6 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       
-      {/* Hero Section with Carousel */}
       <section className="relative h-[90vh] w-full overflow-hidden bg-black">
         {heroImages.map((image, index) => (
           <div
@@ -54,7 +51,6 @@ export default function Home() {
           </div>
         ))}
         
-        {/* Overlay Content */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-background flex flex-col items-center justify-center text-center p-4 z-10">
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <h1 className="text-6xl md:text-8xl font-headline font-bold text-white mb-6 drop-shadow-2xl">
@@ -78,7 +74,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Carousel Indicators */}
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-3 z-20">
           {heroImages.map((_, i) => (
             <button
@@ -93,7 +88,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Section */}
       <section className="py-16 bg-card border-y">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -112,7 +106,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why TravelBharat Section */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -149,7 +142,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured States Grid */}
       <section className="py-24 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
@@ -196,7 +188,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trending Destinations */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -240,7 +231,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Themes Section */}
       <section className="py-24 bg-card">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -270,7 +260,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* AI Promotion Section */}
       <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
@@ -279,7 +268,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur rounded-full text-sm font-bold">
-                <Sparkles className="h-4 w-4" /> Powered by Genkit AI
+                <span className="animate-pulse">✨</span> Powered by Genkit AI
               </div>
               <h2 className="text-5xl md:text-6xl font-headline font-bold leading-tight">
                 Plan Smarter with Our AI Curator
@@ -291,7 +280,7 @@ export default function Home() {
                 {[
                   'Instant historical background generation',
                   'Pro-tips for every destination',
-                  'AI-curated "hidden gems" in every state',
+                  'AI-curated multi-day itineraries',
                   'Verified cultural significance data'
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-center gap-3 font-medium">
@@ -299,9 +288,11 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6 rounded-full font-bold shadow-lg">
-                Try the AI Feature
-              </Button>
+              <Link href="/itinerary">
+                <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6 rounded-full font-bold shadow-lg">
+                  Plan AI Itinerary
+                </Button>
+              </Link>
             </div>
             <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20">
               <Image
@@ -316,7 +307,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Newsletter / Final CTA */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 text-center max-w-4xl">
           <div className="p-12 md:p-20 rounded-[4rem] bg-card border border-primary/20 shadow-2xl relative overflow-hidden">
