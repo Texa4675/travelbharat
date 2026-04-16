@@ -7,7 +7,6 @@ import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 import { Button } from '@/components/ui/button';
 import { STATES, DESTINATIONS } from '@/app/lib/data';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ArrowRight, MapPin, Sparkles, Globe, ShieldCheck, Compass, CheckCircle2 } from 'lucide-react';
 
 export default function Home() {
@@ -44,8 +43,8 @@ export default function Home() {
               src={image.url}
               alt={`India Landscape ${index + 1}`}
               fill
-              className="object-cover scale-105 animate-pulse-slow"
-              priority={index === 0}
+              className="object-cover scale-105"
+              priority={index < 2} // Prioritize first two images to resolve LCP issues
               data-ai-hint={image.hint}
             />
           </div>

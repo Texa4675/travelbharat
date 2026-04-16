@@ -1,7 +1,6 @@
-
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -16,6 +15,11 @@ import { format } from 'date-fns';
 export default function HistoryPage() {
   const { user, loading: userLoading } = useUser();
   const db = useFirestore();
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   const scanQuery = useMemo(() => {
     if (!db || !user) return null;
@@ -27,7 +31,7 @@ export default function HistoryPage() {
 
   const { data: scans, loading: scansLoading } = useCollection(scanQuery);
 
-  if (userLoading || scansLoading) {
+  if (userLoading || scansLoading || !isHydrated) {
     return (
       <div className="flex flex-col min-h-screen">
         <Navbar />

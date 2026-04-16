@@ -1,8 +1,16 @@
+'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 
 export default function Footer() {
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
   return (
     <footer className="bg-card border-t py-12">
       <div className="container mx-auto px-4">
@@ -52,7 +60,7 @@ export default function Footer() {
         </div>
         
         <div className="mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} TravelBharat. Proudly showcasing Incredible India.</p>
+          <p>© {year || ''} TravelBharat. Proudly showcasing Incredible India.</p>
         </div>
       </div>
     </footer>
