@@ -1,30 +1,61 @@
 
+'use client';
+
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 import { Button } from '@/components/ui/button';
 import { STATES, DESTINATIONS } from '@/app/lib/data';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ArrowRight, MapPin, Sparkles, Globe, ShieldCheck, Compass, CheckCircle2 } from 'lucide-react';
 
 export default function Home() {
   const featuredDestinations = DESTINATIONS.slice(0, 4);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Hero images curated from placeholder data
+  const heroImages = [
+    { url: 'https://picsum.photos/seed/taj/1920/1080', hint: 'Taj Mahal' },
+    { url: 'https://picsum.photos/seed/kerala/1920/1080', hint: 'Kerala Backwaters' },
+    { url: 'https://picsum.photos/seed/ladakh/1920/1080', hint: 'Ladakh Mountains' },
+    { url: 'https://picsum.photos/seed/varanasi/1920/1080', hint: 'Varanasi Ghats' },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [heroImages.length]);
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="relative h-[90vh] w-full overflow-hidden">
-        <Image
-          src="https://picsum.photos/seed/india-hero-main/1920/1080"
-          alt="Incredible India Landscape"
-          fill
-          className="object-cover"
-          priority
-          data-ai-hint="India landscape"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-background flex flex-col items-center justify-center text-center p-4">
+      {/* Hero Section with Carousel */}
+      <section className="relative h-[90vh] w-full overflow-hidden bg-black">
+        {heroImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <Image
+              src={image.url}
+              alt={`India Landscape ${index + 1}`}
+              fill
+              className="object-cover scale-105 animate-pulse-slow"
+              priority={index === 0}
+              data-ai-hint={image.hint}
+            />
+          </div>
+        ))}
+        
+        {/* Overlay Content */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-background flex flex-col items-center justify-center text-center p-4 z-10">
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <h1 className="text-6xl md:text-8xl font-headline font-bold text-white mb-6 drop-shadow-2xl">
               TravelBharat
@@ -45,6 +76,20 @@ export default function Home() {
               </Link>
             </div>
           </div>
+        </div>
+
+        {/* Carousel Indicators */}
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+          {heroImages.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentImageIndex(i)}
+              className={`h-1.5 rounded-full transition-all ${
+                i === currentImageIndex ? 'w-8 bg-primary' : 'w-2 bg-white/50'
+              }`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
         </div>
       </section>
 
