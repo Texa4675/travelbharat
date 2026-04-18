@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import { STATES } from '@/app/lib/data';
 import { Sparkles, Clock, Compass, Loader2, Plane, Briefcase, Info } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -23,11 +24,24 @@ export default function ItineraryPage() {
   const [selectedState, setSelectedState] = useState('');
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [days, setDays] = useState('3');
+  const [customDays, setCustomDays] = useState('3');
+  const [isCustomDays, setIsCustomDays] = useState(false);
 
   const toggleInterest = (interest: string) => {
     setSelectedInterests(prev => 
       prev.includes(interest) ? prev.filter(i => i !== interest) : [...prev, interest]
     );
+  };
+
+  const handleDaysChange = (value: string) => {
+    if (value === 'custom') {
+      setIsCustomDays(true);
+      setDays('custom');
+    } else {
+      setIsCustomDays(false);
+      setDays(value);
+      setCustomDays(value);
+    }
   };
 
   const handleGenerate = async () => {
@@ -40,12 +54,23 @@ export default function ItineraryPage() {
       return;
     }
 
+    const duration = isCustomDays ? parseInt(customDays) : parseInt(days);
+    
+    if (isNaN(duration) || duration < 1 || duration > 7) {
+      toast({
+        title: "Invalid Duration",
+        description: "Please enter a trip duration between 1 and 7 days.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsLoading(true);
     try {
       const data = await generateItinerary({
         state: selectedState,
         interests: selectedInterests,
-        durationDays: parseInt(days)
+        durationDays: duration
       });
       setResult(data);
       toast({
@@ -103,16 +128,34 @@ export default function ItineraryPage() {
 
                   <div className="space-y-3">
                     <Label className="text-sm font-bold">Duration</Label>
-                    <Select onValueChange={setDays} value={days}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Days" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {[1, 2, 3, 4, 5, 6, 7].map(d => (
-                          <SelectItem key={d} value={d.toString()}>{d} {d === 1 ? 'Day' : 'Days'}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <div className="space-y-2">
+                      <Select onValueChange={handleDaysChange} value={days}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Days" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {[1, 2, 3, 5, 7].map(d => (
+                            <SelectItem key={d} value={d.toString()}>{d} {d === 1 ? 'Day' : 'Days'}</SelectItem>
+                          ))}
+                          <SelectItem value="custom">Custom...</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      
+                      {isCustomDays && (
+                        <div className="pt-2">
+                          <Input 
+                            type="number" 
+                            min="1" 
+                            max="7" 
+                            placeholder="Enter days (1-7)" 
+                            value={customDays}
+                            onChange={(e) => setCustomDays(e.target.value)}
+                            className="bg-background"
+                          />
+                          <p className="text-[10px] text-muted-foreground mt-1">Maximum 7 days recommended for detail.</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <div className="space-y-3">
