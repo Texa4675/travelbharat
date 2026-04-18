@@ -48,7 +48,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       
-      <section className="relative h-[90vh] w-full overflow-hidden bg-black">
+      <section className="relative h-[90vh] w-full overflow-hidden bg-black rounded-[2rem] mt-4">
         {heroImages.map((image, index) => (
           <div
             key={index}
@@ -105,7 +105,7 @@ export default function Home() {
       </section>
 
       {/* Quick AI Insights Section */}
-      <section className="py-12 bg-accent/10 border-b">
+      <section className="py-12 bg-accent/10 border-b my-8 rounded-[2rem]">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 p-8 rounded-3xl bg-card border border-primary/20">
             <div className="max-w-xl">
@@ -133,7 +133,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 bg-card border-y">
+      <section className="py-16 bg-card border-y rounded-[2rem] my-8">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
@@ -187,7 +187,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-24 bg-muted/30">
+      <section className="py-24 bg-muted/30 rounded-[3rem] my-8">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
             <div className="max-w-2xl">
@@ -276,7 +276,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-24 bg-card">
+      <section className="py-24 bg-card rounded-[3rem] my-8">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-headline font-bold mb-4">Journey by Theme</h2>
@@ -305,7 +305,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
+      <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden rounded-[3rem] my-8 mx-4">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
         </div>
