@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -21,6 +22,7 @@ export default function Home() {
   ];
 
   useEffect(() => {
+    if (heroImages.length === 0) return;
     const timer = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
     }, 5000);
@@ -44,14 +46,14 @@ export default function Home() {
               alt={`India Landscape ${index + 1}`}
               fill
               className="object-cover scale-105"
-              priority={index < 2}
+              priority={index === 0}
               data-ai-hint={image.hint}
             />
           </div>
         ))}
         
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-background flex flex-col items-center justify-center text-center px-4 z-10">
-          <div className="container mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000">
+          <div className="container mx-auto px-4 animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <h1 className="text-6xl md:text-8xl font-headline font-bold text-white mb-6 drop-shadow-2xl">
               TravelBharat
             </h1>
