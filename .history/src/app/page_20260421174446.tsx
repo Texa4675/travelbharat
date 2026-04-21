@@ -19,11 +19,11 @@ export default function Home() {
 
   const heroImages = [
     { src: '/public/ganga.jpg', alt: 'Ganga' },
-    { src: '/public/delhi.jpg', alt: 'Delhi' },
-    { src: '/public/mp.jpg', alt: 'Madhya Pradesh' },
-    { src: '/public/taj.jpg', alt: 'Taj Mahal' },
-    { src: '/public/train.jpg', alt: 'Railway' },
-    { src: '/public/desert.jpg', alt: 'Thar Desert' },
+    { src: '/delhi.jpg', alt: 'Delhi' },
+    { src: '/mp.jpg', alt: 'Madhya Pradesh' },
+    { src: '/taj.jpg', alt: 'Taj Mahal' },
+    { src: '/train.jpg', alt: 'Railway' },
+    { src: '/desert.jpg', alt: 'Thar Desert' },
   ];
 
   useEffect(() => {
