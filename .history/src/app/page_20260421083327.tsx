@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -8,31 +7,40 @@ import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 import { Button } from '@/components/ui/button';
 import { STATES, DESTINATIONS } from '@/app/lib/data';
-import { ArrowRight, MapPin, Sparkles, Globe, ShieldCheck, Compass, CheckCircle2, Loader2 } from 'lucide-react';
+import { 
+  ArrowRight, 
+  MapPin, 
+  Sparkles, 
+  Globe, 
+  ShieldCheck, 
+  Compass, 
+  CheckCircle2, 
+  Loader2 
+} from 'lucide-react';
 import { quickExplain } from '@/ai/flows/quick-explain-flow';
 
 export default function Home() {
   const featuredDestinations = DESTINATIONS.slice(0, 4);
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [aiExplanation, setAiExplanation] = useState<string | null>(null);
   const [isExplaining, setIsExplaining] = useState(false);
 
   const heroImages = [
-    { src: '/Waters.jpg', alt: 'Ganga' },
-    { src: '/delhi.jpg', alt: 'Delhi' },
-    { src: '/mp.jpg', alt: 'Madhya Pradesh' },
-    { src: '/taj.jpg', alt: 'Taj Mahal' },
-    { src: '/train.jpg', alt: 'Railway' },
-    { src: '/desert.jpg', alt: 'Thar Desert' },
+    { url: 'https://picsum.photos/seed/kerala/1920/1080', hint: 'Kerala Backwaters' },
+    { url: 'https://picsum.photos/seed/ladakh/1920/1080', hint: 'Ladakh Mountains' },
+    { url: 'https://picsum.photos/seed/varanasi/1920/1080', hint: 'Varanasi Ghats' },
   ];
 
   useEffect(() => {
     if (heroImages.length === 0) return;
+
     const timer = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
     }, 5000);
+
     return () => clearInterval(timer);
-  }, [heroImages.length]);
+  }, []);
 
   const handleExplainAI = async () => {
     setIsExplaining(true);
@@ -40,7 +48,8 @@ export default function Home() {
       const result = await quickExplain();
       setAiExplanation(result);
     } catch (error) {
-      console.error(error);
+      console.error('Failed to generate AI insight:', error);
+      setAiExplanation("Sorry, couldn't generate insight at the moment. Please try again.");
     } finally {
       setIsExplaining(false);
     }
@@ -49,7 +58,8 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      
+
+      {/* Hero Section */}
       <section className="relative h-[90vh] w-full overflow-hidden bg-black rounded-[2rem] mt-4">
         {heroImages.map((image, index) => (
           <div
@@ -59,15 +69,16 @@ export default function Home() {
             }`}
           >
             <Image
-              src={image.src}
-              alt={image.alt}
+              src={image.url}
+              alt={`India Landscape ${index + 1}`}
               fill
               className="object-cover scale-105"
               priority={index === 0}
+              data-ai-hint={image.hint}
             />
           </div>
         ))}
-        
+
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-background flex flex-col items-center justify-center text-center px-4 z-10">
           <div className="container mx-auto px-4 animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <h1 className="text-6xl md:text-8xl font-headline font-bold text-white mb-6 drop-shadow-2xl">
@@ -78,12 +89,19 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link href="/states">
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-xl px-10 py-7 rounded-full transition-all hover:scale-105">
+                <Button 
+                  size="lg" 
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 text-xl px-10 py-7 rounded-full transition-all hover:scale-105"
+                >
                   Start Your Journey
                 </Button>
               </Link>
               <Link href="/destinations">
-                <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/20 text-xl px-10 py-7 rounded-full backdrop-blur-sm transition-all hover:scale-105">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="text-white border-white hover:bg-white/20 text-xl px-10 py-7 rounded-full backdrop-blur-sm transition-all hover:scale-105"
+                >
                   Explore Places
                 </Button>
               </Link>
@@ -91,6 +109,7 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Hero Indicators */}
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-3 z-20">
           {heroImages.map((_, i) => (
             <button
@@ -121,9 +140,14 @@ export default function Home() {
                 disabled={isExplaining}
                 className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8"
               >
-                {isExplaining ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Sparkles className="h-4 w-4 mr-2" />}
+                {isExplaining ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <Sparkles className="h-4 w-4 mr-2" />
+                )}
                 Generate Insight
               </Button>
+
               {aiExplanation && (
                 <div className="p-4 bg-muted rounded-2xl text-xs italic text-center max-w-sm animate-in fade-in slide-in-from-top-2">
                   "{aiExplanation}"
@@ -134,6 +158,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Stats Section */}
       <section className="py-16 bg-card border-y rounded-[2rem] my-8">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -152,6 +177,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Features Section */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -160,11 +186,12 @@ export default function Home() {
               We bridge the gap between curiosity and discovery with a platform built for the modern traveler seeking authentic experiences.
             </p>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
               {
                 title: 'State-Centric Guides',
-                desc: 'Deep dive into each state\'s unique identity, culture, and cuisine with curated regional guides.',
+                desc: "Deep dive into each state's unique identity, culture, and cuisine with curated regional guides.",
                 icon: <Globe className="h-10 w-10 text-primary" />
               },
               {
@@ -188,6 +215,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Featured States Section */}
       <section className="py-24 bg-muted/30 rounded-[3rem] my-8">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
@@ -204,7 +232,11 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {STATES.slice(0, 6).map((state) => (
-              <Link key={state.id} href={`/states/${state.id}`} className="group relative h-[450px] overflow-hidden rounded-3xl shadow-xl">
+              <Link 
+                key={state.id} 
+                href={`/states/${state.id}`} 
+                className="group relative h-[450px] overflow-hidden rounded-3xl shadow-xl"
+              >
                 <Image
                   src={state.imageUrl}
                   alt={state.name}
@@ -234,6 +266,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Trending Destinations */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -242,23 +275,30 @@ export default function Home() {
               The most visited and highly-rated landmarks across the country this season.
             </p>
           </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredDestinations.map((dest) => (
-              <Link key={dest.id} href={`/destinations/${dest.id}`} className="group bg-card rounded-2xl border overflow-hidden hover:shadow-2xl transition-all">
+              <Link 
+                key={dest.id} 
+                href={`/destinations/${dest.id}`} 
+                className="group bg-card rounded-2xl border overflow-hidden hover:shadow-2xl transition-all"
+              >
                 <div className="relative h-48">
                   <Image
                     src={dest.images[0]}
                     alt={dest.name}
                     fill
                     className="object-cover"
-                    data-ai-hint={dest.imageHints[0]}
+                    data-ai-hint={dest.imageHints?.[0]}
                   />
                   <div className="absolute top-3 right-3 bg-background/80 backdrop-blur px-2 py-1 rounded-lg text-[10px] font-bold uppercase">
                     {dest.category}
                   </div>
                 </div>
                 <div className="p-5">
-                  <h4 className="font-headline font-bold text-xl mb-1 group-hover:text-primary transition-colors">{dest.name}</h4>
+                  <h4 className="font-headline font-bold text-xl mb-1 group-hover:text-primary transition-colors">
+                    {dest.name}
+                  </h4>
                   <div className="flex items-center gap-1 text-muted-foreground text-xs mb-3">
                     <MapPin className="h-3 w-3" />
                     {dest.cityName}, {STATES.find(s => s.id === dest.stateId)?.name}
@@ -277,6 +317,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Journey by Theme */}
       <section className="py-24 bg-card rounded-[3rem] my-8">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -285,6 +326,7 @@ export default function Home() {
               Find your perfect escape by filtering through India's diverse travel experiences.
             </p>
           </div>
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { name: 'Heritage', icon: '🏰', count: '120+ Places', desc: 'Ancient forts & palaces' },
@@ -292,11 +334,17 @@ export default function Home() {
               { name: 'Religious', icon: '🙏', count: '200+ Places', desc: 'Spiritual soul of India' },
               { name: 'Adventure', icon: '🏔️', count: '50+ Places', desc: 'Thrills in the wild' }
             ].map((cat) => (
-              <Link key={cat.name} href={`/destinations?category=${cat.name}`} className="relative p-10 rounded-3xl bg-background border hover:border-primary hover:shadow-xl transition-all group overflow-hidden">
+              <Link 
+                key={cat.name} 
+                href={`/destinations?category=${cat.name}`} 
+                className="relative p-10 rounded-3xl bg-background border hover:border-primary hover:shadow-xl transition-all group overflow-hidden"
+              >
                 <div className="absolute -right-4 -top-4 text-8xl opacity-5 group-hover:scale-110 transition-transform">
                   {cat.icon}
                 </div>
-                <span className="text-5xl mb-6 block group-hover:scale-125 transition-transform origin-left">{cat.icon}</span>
+                <span className="text-5xl mb-6 block group-hover:scale-125 transition-transform origin-left">
+                  {cat.icon}
+                </span>
                 <h3 className="text-2xl font-headline font-bold mb-2">{cat.name}</h3>
                 <p className="text-xs text-primary font-bold mb-4 uppercase tracking-widest">{cat.count}</p>
                 <p className="text-sm text-muted-foreground">{cat.desc}</p>
@@ -306,6 +354,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* AI Curator CTA */}
       <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden rounded-[3rem] my-8 mx-4">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
@@ -335,11 +384,16 @@ export default function Home() {
                 ))}
               </ul>
               <Link href="/itinerary">
-                <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6 rounded-full font-bold shadow-lg">
+                <Button 
+                  size="lg" 
+                  variant="secondary" 
+                  className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6 rounded-full font-bold shadow-lg"
+                >
                   Plan AI Itinerary
                 </Button>
               </Link>
             </div>
+
             <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20">
               <Image
                 src="https://picsum.photos/seed/ai-travel/1000/1000"
@@ -353,6 +407,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Final CTA */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 text-center max-w-4xl">
           <div className="p-12 md:p-20 rounded-[4rem] bg-card border border-primary/20 shadow-2xl relative overflow-hidden">

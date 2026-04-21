@@ -18,12 +18,12 @@ export default function Home() {
   const [isExplaining, setIsExplaining] = useState(false);
 
   const heroImages = [
-    { src: '/Waters.jpg', alt: 'Ganga' },
-    { src: '/delhi.jpg', alt: 'Delhi' },
-    { src: '/mp.jpg', alt: 'Madhya Pradesh' },
-    { src: '/taj.jpg', alt: 'Taj Mahal' },
-    { src: '/train.jpg', alt: 'Railway' },
-    { src: '/desert.jpg', alt: 'Thar Desert' },
+    <img src="/Waters.jpg" alt="Ganga"></img>,
+    <img src="/delhi.jpg" alt="Ganga"></img>,
+    <img src="/mp.jpg" alt="Ganga"></img>,
+    <img src="/taj.jpg" alt="Ganga"></img>,
+    <img src="/train.jpg" alt="railway"></img>,
+    <img src="/desert.jpg" alt="thar"></img>,
   ];
 
   useEffect(() => {
@@ -59,11 +59,12 @@ export default function Home() {
             }`}
           >
             <Image
-              src={image.src}
-              alt={image.alt}
+              src={image.url}
+              alt={`India Landscape ${index + 1}`}
               fill
               className="object-cover scale-105"
               priority={index === 0}
+              data-ai-hint={image.hint}
             />
           </div>
         ))}

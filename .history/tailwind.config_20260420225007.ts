@@ -1,3 +1,4 @@
+
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -41,11 +42,7 @@ export default {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
         },
-        fontFamily: {
-          sans: ['PT Sans', 'system-ui', 'sans-serif'],
-          serif: ['Playfair Display', 'serif'],
-          mono: ['monospace'],
-        },
+        
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',

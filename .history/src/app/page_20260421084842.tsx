@@ -59,11 +59,12 @@ export default function Home() {
             }`}
           >
             <Image
-              src={image.src}
-              alt={image.alt}
+              src={image.url}
+              alt={`India Landscape ${index + 1}`}
               fill
               className="object-cover scale-105"
               priority={index === 0}
+              data-ai-hint={image.hint}
             />
           </div>
         ))}

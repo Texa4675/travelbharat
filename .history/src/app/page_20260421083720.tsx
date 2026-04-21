@@ -17,14 +17,10 @@ export default function Home() {
   const [aiExplanation, setAiExplanation] = useState<string | null>(null);
   const [isExplaining, setIsExplaining] = useState(false);
 
-  const heroImages = [
-    { src: '/Waters.jpg', alt: 'Ganga' },
-    { src: '/delhi.jpg', alt: 'Delhi' },
-    { src: '/mp.jpg', alt: 'Madhya Pradesh' },
-    { src: '/taj.jpg', alt: 'Taj Mahal' },
-    { src: '/train.jpg', alt: 'Railway' },
-    { src: '/desert.jpg', alt: 'Thar Desert' },
-  ];
+ const heroImages = [
+  { src: "/Waters.jpg", alt: "Ganga" },
+  { src: "/Waters.jpg", alt: "Ganga" }
+];
 
   useEffect(() => {
     if (heroImages.length === 0) return;
@@ -59,11 +55,12 @@ export default function Home() {
             }`}
           >
             <Image
-              src={image.src}
-              alt={image.alt}
+              src={image.url}
+              alt={`India Landscape ${index + 1}`}
               fill
               className="object-cover scale-105"
               priority={index === 0}
+              data-ai-hint={image.hint}
             />
           </div>
         ))}

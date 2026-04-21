@@ -18,12 +18,10 @@ export default function Home() {
   const [isExplaining, setIsExplaining] = useState(false);
 
   const heroImages = [
-    { src: '/Waters.jpg', alt: 'Ganga' },
-    { src: '/delhi.jpg', alt: 'Delhi' },
-    { src: '/mp.jpg', alt: 'Madhya Pradesh' },
-    { src: '/taj.jpg', alt: 'Taj Mahal' },
-    { src: '/train.jpg', alt: 'Railway' },
-    { src: '/desert.jpg', alt: 'Thar Desert' },
+    <img src="" alt="Description of image"></img>
+    { url: 'https://picsum.photos/seed/kerala/1920/1080', hint: 'Kerala Backwaters' },
+    { url: 'https://picsum.photos/seed/ladakh/1920/1080', hint: 'Ladakh Mountains' },
+    { url: 'https://picsum.photos/seed/varanasi/1920/1080', hint: 'Varanasi Ghats' },
   ];
 
   useEffect(() => {
@@ -59,11 +57,12 @@ export default function Home() {
             }`}
           >
             <Image
-              src={image.src}
-              alt={image.alt}
+              src={image.url}
+              alt={`India Landscape ${index + 1}`}
               fill
               className="object-cover scale-105"
               priority={index === 0}
+              data-ai-hint={image.hint}
             />
           </div>
         ))}
