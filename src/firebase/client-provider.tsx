@@ -2,7 +2,6 @@
 
 import React, { ReactNode, useState, useEffect } from 'react';
 import { FirebaseProvider } from './provider';
-import { FirebaseErrorListener } from '@/components/FirebaseErrorListener';
 import { initializeFirebase } from './init';
 
 export const FirebaseClientProvider = ({
@@ -31,7 +30,6 @@ export const FirebaseClientProvider = ({
       firestore={firebaseInstance.firestore}
       auth={firebaseInstance.auth}
     >
-      <FirebaseErrorListener />
       {children}
     </FirebaseProvider>
   );

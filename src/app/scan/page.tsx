@@ -12,8 +12,6 @@ import { useToast } from '@/hooks/use-toast';
 import { identifyMonument, type IdentifyMonumentOutput } from '@/ai/flows/identify-monument-flow';
 import { useUser, useFirestore } from '@/firebase';
 import { collection, addDoc } from 'firebase/firestore';
-import { errorEmitter } from '@/firebase/error-emitter';
-import { FirestorePermissionError } from '@/firebase/errors';
 
 export default function ScanPage() {
   const { toast } = useToast();
@@ -89,13 +87,8 @@ export default function ScanPage() {
         };
         
         const scanRef = collection(db, 'users', user.uid, 'scans');
-        addDoc(scanRef, scanData).catch(async (err) => {
-          const permissionError = new FirestorePermissionError({
-            path: scanRef.path,
-            operation: 'create',
-            requestResourceData: scanData,
-          });
-          errorEmitter.emit('permission-error', permissionError);
+        addDoc(scanRef, scanData).catch((err) => {
+          console.error("Error saving scan data:", err);
         });
       }
 
