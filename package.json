@@ -9,7 +9,7 @@
     "dev": "next dev -p 9002",
     "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
     "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
-    "build": "NODE_ENV=production next build",
+    "build": "cross-env NODE_ENV=production next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
@@ -50,6 +50,7 @@
     "next": "^16.2.4",
     "patch-package": "^8.0.0",
     "react": "^19.0.0",
+    "react-day-picker": "^9.14.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.72.1",
     "recharts": "^2.15.1",
@@ -60,6 +61,7 @@
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19.0.0",
+    "@types/react-day-picker": "^5.2.1",
     "@types/react-dom": "^19.0.0",
     "genkit-cli": "^1.29.0",
     "postcss": "^8",
