@@ -9,10 +9,7 @@ import {
   getDocs,
   Timestamp
 } from 'firebase/firestore';
-import { initializeFirebase } from '../init';
-
-// Initialize firebase to get the firestore instance
-const { firestore } = initializeFirebase();
+import { db as firestore } from '../init';
 
 // Define the UserData type
 export interface UserData {
