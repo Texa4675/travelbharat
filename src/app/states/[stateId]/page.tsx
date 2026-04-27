@@ -8,7 +8,13 @@ import { notFound } from 'next/navigation';
 import { MapPin, Calendar, Clock, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
-export default async function StateDetailPage({ params }: { params: { stateId: string } }) {
+export async function generateStaticParams() {
+  return STATES.map((state) => ({
+    stateId: state.id,
+  }));
+}
+
+export default async function StateDetailPage({ params }: { params: Promise<{ stateId: string }> }) {
   const { stateId } = await params;
   const state = STATES.find((s) => s.id === stateId);
   

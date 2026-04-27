@@ -10,7 +10,13 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-export default async function DestinationDetailPage({ params }: { params: { id: string } }) {
+export async function generateStaticParams() {
+  return DESTINATIONS.map((destination) => ({
+    id: destination.id,
+  }));
+}
+
+export default async function DestinationDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const destination = DESTINATIONS.find((d) => d.id === id);
   

@@ -8,14 +8,11 @@ import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 import { Button } from '@/components/ui/button';
 import { STATES, DESTINATIONS } from '@/app/lib/data';
-import { ArrowRight, MapPin, Sparkles, Globe, ShieldCheck, Compass, CheckCircle2, Loader2 } from 'lucide-react';
-import { quickExplain } from '@/ai/flows/quick-explain-flow';
+import { ArrowRight, MapPin, Sparkles, Globe, ShieldCheck, Compass, CheckCircle2 } from 'lucide-react';
 
 export default function Home() {
   const featuredDestinations = DESTINATIONS.slice(0, 4);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [aiExplanation, setAiExplanation] = useState<string | null>(null);
-  const [isExplaining, setIsExplaining] = useState(false);
 
   const heroImages = [
     { url: 'https://picsum.photos/seed/taj/1920/1080', hint: 'Taj Mahal' },
@@ -32,17 +29,7 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [heroImages.length]);
 
-  const handleExplainAI = async () => {
-    setIsExplaining(true);
-    try {
-      const result = await quickExplain();
-      setAiExplanation(result);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsExplaining(false);
-    }
-  };
+
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -104,34 +91,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quick AI Insights Section */}
-      <section className="py-12 bg-accent/10 border-b my-8 rounded-[2rem]">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8 p-8 rounded-3xl bg-card border border-primary/20">
-            <div className="max-w-xl">
-              <h2 className="text-2xl font-headline font-bold mb-2">Quick AI Insights</h2>
-              <p className="text-muted-foreground text-sm">
-                TravelBharat uses advanced AI to help you identify monuments and plan itineraries. Want a quick tip on how it works?
-              </p>
-            </div>
-            <div className="flex flex-col items-center gap-4">
-              <Button 
-                onClick={handleExplainAI} 
-                disabled={isExplaining}
-                className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8"
-              >
-                {isExplaining ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Sparkles className="h-4 w-4 mr-2" />}
-                Generate Insight
-              </Button>
-              {aiExplanation && (
-                <div className="p-4 bg-muted rounded-2xl text-xs italic text-center max-w-sm animate-in fade-in slide-in-from-top-2">
-                  "{aiExplanation}"
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       <section className="py-16 bg-card border-y rounded-[2rem] my-8">
         <div className="container mx-auto px-4">
