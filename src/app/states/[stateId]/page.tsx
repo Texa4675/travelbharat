@@ -1,13 +1,21 @@
+import { STATES, DESTINATIONS } from '@/app/lib/data';
 
+export const dynamic = 'force-static';
+
+export async function generateStaticParams() {
+  return STATES.map((state) => ({
+    stateId: state.id.toString(),
+  }));
+}
 import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 import Image from 'next/image';
 import Link from 'next/link';
-import { STATES, DESTINATIONS } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { MapPin, Calendar, Clock, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
+<<<<<<< HEAD
 export async function generateStaticParams() {
   return STATES.map((state) => ({
     stateId: state.id,
@@ -18,16 +26,25 @@ export default async function StateDetailPage({ params }: { params: Promise<{ st
   const { stateId } = await params;
   const state = STATES.find((s) => s.id === stateId);
   
+=======
+export default async function StateDetailPage({ params }: { params: { stateId: string } }) {
+  const { stateId } = params;
+
+  const state = STATES.find((s) => s.id.toString() === stateId);
+
+>>>>>>> fc4fddf432f57a8d584d70d468fc2f56af4decd4
   if (!state) {
     notFound();
   }
 
-  const destinations = DESTINATIONS.filter((d) => d.stateId === stateId);
+  const destinations = DESTINATIONS.filter(
+    (d) => d.stateId.toString() === stateId
+  );
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      
+
       {/* State Hero */}
       <section className="relative h-[60vh] w-full">
         <Image
@@ -131,19 +148,19 @@ export default async function StateDetailPage({ params }: { params: Promise<{ st
               </div>
 
               <div className="rounded-xl overflow-hidden relative h-64 border">
-                 <Image
-                    src="https://picsum.photos/seed/map-placeholder/400/600"
-                    alt="Map view"
-                    fill
-                    className="object-cover grayscale opacity-50"
-                 />
-                 <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center p-4 bg-background/80 backdrop-blur rounded-lg border">
-                      <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">Interactive Map</p>
-                      <p className="text-sm">Explore {state.name} Geographically</p>
-                      <Badge variant="outline" className="mt-4">Coming Soon</Badge>
-                    </div>
-                 </div>
+                <Image
+                  src="https://picsum.photos/seed/map-placeholder/400/600"
+                  alt="Map view"
+                  fill
+                  className="object-cover grayscale opacity-50"
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center p-4 bg-background/80 backdrop-blur rounded-lg border">
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">Interactive Map</p>
+                    <p className="text-sm">Explore {state.name} Geographically</p>
+                    <Badge variant="outline" className="mt-4">Coming Soon</Badge>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
