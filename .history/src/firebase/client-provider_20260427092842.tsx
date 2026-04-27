@@ -14,7 +14,7 @@ export const FirebaseClientProvider = ({
   useEffect(() => {
     const initAuth = async () => {
       if (typeof window !== "undefined") {
-        import { getAuth } from "firebase/auth";
+        const { getAuth } = await import('firebase/auth');
         setAuth(getAuth(app));
       }
     };
