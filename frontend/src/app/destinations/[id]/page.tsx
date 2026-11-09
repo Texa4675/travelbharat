@@ -31,13 +31,14 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function DestinationDetailPage({
+export default async function DestinationDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = await params;
   const destination = DESTINATIONS.find(
-    (d) => String(d.id) === params.id
+    (d) => String(d.id) === id
   );
 
   if (!destination) {

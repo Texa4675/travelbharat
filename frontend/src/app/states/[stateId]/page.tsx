@@ -15,8 +15,8 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function StateDetailPage({ params }: { params: { stateId: string } }) {
-  const { stateId } = params;
+export default async function StateDetailPage({ params }: { params: Promise<{ stateId: string }> }) {
+  const { stateId } = await params;
 
   const state = STATES.find((s) => s.id.toString() === stateId);
 
