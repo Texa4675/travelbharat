@@ -1,0 +1,42 @@
+
+INSERT INTO states (id, name, capital, description, image_url) VALUES
+
+-- 28 States
+('andhra-pradesh', 'Andhra Pradesh', 'Amaravati', 'A southeastern Indian state known for its coastline, temples, heritage and natural landscapes.', NULL),
+('arunachal-pradesh', 'Arunachal Pradesh', 'Itanagar', 'A northeastern Himalayan state known for mountains, monasteries, forests and indigenous cultures.', NULL),
+('assam', 'Assam', 'Dispur', 'A northeastern state famous for tea gardens, the Brahmaputra River and wildlife.', NULL),
+('bihar', 'Bihar', 'Patna', 'A historically significant state associated with ancient learning, Buddhism and major archaeological sites.', NULL),
+('chhattisgarh', 'Chhattisgarh', 'Raipur', 'A central Indian state known for forests, waterfalls, tribal heritage and ancient temples.', NULL),
+('goa', 'Goa', 'Panaji', 'A western coastal state known for beaches, Portuguese heritage and distinctive architecture.', NULL),
+('gujarat', 'Gujarat', 'Gandhinagar', 'A western Indian state known for historic cities, temples, deserts and coastal attractions.', NULL),
+('haryana', 'Haryana', 'Chandigarh', 'A northern Indian state with agricultural landscapes and important historical sites.', NULL),
+('himachal-pradesh', 'Himachal Pradesh', 'Shimla', 'A Himalayan state known for mountain valleys, hill stations and adventure tourism.', NULL),
+('jharkhand', 'Jharkhand', 'Ranchi', 'An eastern Indian state rich in mineral resources, forests, waterfalls and tribal traditions.', NULL),
+('karnataka', 'Karnataka', 'Bengaluru', 'A southern Indian state known for technology, heritage architecture, hill stations and wildlife.', NULL),
+('kerala', 'Kerala', 'Thiruvananthapuram', 'A southwestern coastal state famous for backwaters, beaches, mountains and cultural traditions.', NULL),
+('madhya-pradesh', 'Madhya Pradesh', 'Bhopal', 'A central Indian state known for historic forts, temples, forests and national parks.', NULL),
+('maharashtra', 'Maharashtra', 'Mumbai', 'A western Indian state featuring major cities, historic forts, caves and diverse landscapes.', NULL),
+('manipur', 'Manipur', 'Imphal', 'A northeastern state known for Loktak Lake, cultural traditions and scenic hills.', NULL),
+('meghalaya', 'Meghalaya', 'Shillong', 'A northeastern state famous for rainfall, waterfalls, caves and living root bridges.', NULL),
+('mizoram', 'Mizoram', 'Aizawl', 'A northeastern hill state known for green landscapes, forests and vibrant cultural traditions.', NULL),
+('nagaland', 'Nagaland', 'Kohima', 'A northeastern state known for its indigenous communities, festivals and mountain scenery.', NULL),
+('odisha', 'Odisha', 'Bhubaneswar', 'An eastern coastal state known for ancient temples, classical arts and beaches.', NULL),
+('punjab', 'Punjab', 'Chandigarh', 'A northern Indian state known for Sikh heritage, agriculture and historic landmarks.', NULL),
+('rajasthan', 'Rajasthan', 'Jaipur', 'A northwestern state known for forts, palaces, desert landscapes and royal heritage.', NULL),
+('sikkim', 'Sikkim', 'Gangtok', 'A Himalayan state known for mountain scenery, monasteries and biodiversity.', NULL),
+('tamil-nadu', 'Tamil Nadu', 'Chennai', 'A southern Indian state renowned for Dravidian temples, classical arts and coastal destinations.', NULL),
+('telangana', 'Telangana', 'Hyderabad', 'A southern Indian state known for Hyderabad heritage, forts, lakes and modern technology.', NULL),
+('tripura', 'Tripura', 'Agartala', 'A northeastern state known for palaces, temples, forests and cultural heritage.', NULL),
+('uttar-pradesh', 'Uttar Pradesh', 'Lucknow', 'A northern Indian state associated with major religious, historical and architectural landmarks.', NULL),
+('uttarakhand', 'Uttarakhand', 'Dehradun', 'A Himalayan state known for pilgrimage centres, mountain landscapes and national parks.', NULL),
+('west-bengal', 'West Bengal', 'Kolkata', 'An eastern Indian state known for literature, cultural heritage, the Himalayas and the Sundarbans.', NULL),
+
+-- 8 Union Territories
+('andaman-nicobar', 'Andaman and Nicobar Islands', 'Sri Vijaya Puram', 'An island territory known for tropical beaches, marine biodiversity and historical sites.', NULL),
+('chandigarh', 'Chandigarh', 'Chandigarh', 'A planned union territory known for modern architecture, gardens and urban design.', NULL),
+('dadra-nagar-haveli-daman-diu', 'Dadra and Nagar Haveli and Daman and Diu', 'Daman', 'A western Indian union territory known for coastal attractions and cultural heritage.', NULL),
+('delhi', 'Delhi', 'New Delhi', 'India’s national capital territory, featuring historic monuments, museums and modern urban attractions.', NULL),
+('jammu-kashmir', 'Jammu and Kashmir', 'Srinagar / Jammu', 'A northern union territory known for Himalayan landscapes, lakes, gardens and heritage.', NULL),
+('ladakh', 'Ladakh', 'Leh', 'A high-altitude union territory known for mountain deserts, Buddhist monasteries and adventure travel.', NULL),
+('lakshadweep', 'Lakshadweep', 'Kavaratti', 'An island union territory famous for coral reefs, lagoons and marine life.', NULL),
+('puducherry', 'Puducherry', 'Puducherry', 'A coastal union territory known for French colonial heritage, beaches and distinctive architecture.', NULL);

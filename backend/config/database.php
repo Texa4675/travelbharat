@@ -10,14 +10,14 @@ function getDatabaseConnection(): PDO
         return $connection;
     }
 
-    $host = getenv('DB_HOST');
+    $host = getenv('DB_HOST') ?: '127.0.0.1';
     $port = getenv('DB_PORT') ?: '3306';
-    $database = getenv('DB_NAME');
-    $username = getenv('DB_USER');
+    $database = getenv('DB_NAME') ?: 'travelbharat';
+    $username = getenv('DB_USER') ?: 'root';
     $password = getenv('DB_PASSWORD');
 
-    if ($host === false || $database === false || $username === false || $password === false) {
-        throw new RuntimeException('Database environment variables are not configured.');
+    if ($password === false) {
+        $password = '';
     }
 
     $dsn = sprintf(
